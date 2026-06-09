@@ -6,7 +6,7 @@ const sendEmail = require("../utils/sendEmail");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
+    const { firstName, lastName, email, phone, password } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -19,8 +19,9 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
+      firstName,
+  lastName,
+  email,
       phone,
       password: hashedPassword,
     });
@@ -29,7 +30,9 @@ const registerUser = async (req, res) => {
       message: "User registered successfully",
       user: {
         id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+  lastName: user.lastName,
+  name: `${user.firstName} ${user.lastName}`,
         email: user.email,
         phone: user.phone,
       },
@@ -72,7 +75,10 @@ const loginUser = async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name,
+         firstName: user.firstName,
+  lastName: user.lastName,
+  name: `${user.firstName} ${user.lastName}`,
+        
         email: user.email,
         phone: user.phone,
       },
