@@ -113,15 +113,21 @@ const forgotPassword = async (req, res) => {
 
     await user.save();
 
-    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-    const message = `You requested a password reset. Click this link to reset your password: ${resetUrl}`;
+const message = `
+  <h2>FreshGo Password Reset</h2>
+  <p>You requested a password reset.</p>
+  <p>Click the link below to reset your password:</p>
+  <a href="${resetUrl}">${resetUrl}</a>
+  <p>This link will expire soon.</p>
+`;
 
-    await sendEmail(user.email, "FreshGo Password Reset", message);
+await sendEmail(user.email, "FreshGo Password Reset", message);
 
-    res.status(200).json({
-      message: "Password reset link sent to email",
-    });
+res.status(200).json({
+  message: "Password reset link sent to email",
+});
   } catch (error) {
     res.status(500).json({
       message: error.message,
