@@ -2,20 +2,18 @@ const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "142.250.102.108",
     port: 587,
     secure: false,
-    family: 4,
+    requireTLS: true,
+    tls: {
+      servername: "smtp.gmail.com",
+    },
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
   });
-
-  await transporter.verify();
 
   await transporter.sendMail({
     from: `"FreshGo Support" <${process.env.EMAIL_USER}>`,
