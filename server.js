@@ -6,7 +6,8 @@ const contactRoutes = require("./routes/contactRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
 dotenv.config();
-console.log("MONGO URI:", process.env.MONGO_URI);
+//console.log("MONGO URI:", process.env.MONGO_URI);
+
 connectDB();
 
 const app = express();
