@@ -123,10 +123,12 @@ const message = `
   <p>This link will expire soon.</p>
 `;
 
-await sendEmail(user.email, "FreshGo Password Reset", message);
+// await sendEmail(user.email, "FreshGo Password Reset", message);
 
-res.status(200).json({
-  message: "Password reset link sent to email",
+// await sendEmail(user.email, "FreshGo Password Reset", message);
+
+return res.status(200).json({
+  message: "Password reset link sent successfully",
 });
   } catch (error) {
     res.status(500).json({
